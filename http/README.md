@@ -1,0 +1,2 @@
+基于http2.0之前的协议版本，client通过post实现向server发起请求并得到相应，client通过长轮询的方式得到server的'主动响应',需要server端的配合。
+（需要server也是2.0之前，即没有使用websocket协议，且对client的长轮询根据业务需要做应答）

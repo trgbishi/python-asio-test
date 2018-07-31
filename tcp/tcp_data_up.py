@@ -29,14 +29,10 @@ class Data_Up:
 
     async def chat(self,ip,port,loop,msg):
         while True:
-            print('a')
             try:
-                print('b')
                 reader, writer = await asyncio.open_connection(ip, port, loop=loop)
-                print('c')
                 break
             except ConnectionRefusedError:
-                print('d')
                 continue
         client = Tcp_Client(reader, writer)
         tasks = [self.chat_recv(client,loop,ip,port), self.chat_send(client,msg)]

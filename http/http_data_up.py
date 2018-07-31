@@ -5,7 +5,7 @@ import ujson
 sys.path.append('C:\\Users\\kdgz\\Desktop\\collector')
 from comm.asio.http.http_client import Http_Client
 class Data_Up:
-    async def post_req(self,socket,url,msg):
+    async def post_req(self,socket,msg):
         while True:
             await asyncio.sleep(1)
             try:
@@ -14,7 +14,7 @@ class Data_Up:
             except (aiohttp.client_exceptions.ClientOSError,aiohttp.client_exceptions.ServerDisconnectedError) as e:
                 socket.close()
                 session = aiohttp.ClientSession()
-                socket = Http_Client(session,url) 
+                socket = Http_Client(session,self.__url) 
                 
                 print(str(e))
                 continue
@@ -35,20 +35,21 @@ class Data_Up:
                 #当消息发送成功，并成功解析，退出true循环,并退出函数。这样每次进入该函数，顺利的话，只会发送一次req，并解析resp
                 #具体看业务逻辑
 
-    async def chat_send(self,socket,url,msg):
-        await self.post_req(socket,url,msg)
+    async def chat_send(self,socket,msg):
+        await self.post_req(socket,msg)
 
     #长轮询，获取server发的request
-    async def chat_recv(self,socket,url):
+    async def chat_recv(self,socket,):
         while True:
-            resp = await self.post_req(socket,url,'{"test":"getRequest"}')
+            resp = await self.post_req(socket,'{"test":"getRequest"}')
             print('recv: ' + str(resp))
     
 
 
     async def chat(self,url,msg,loop):
         session = aiohttp.ClientSession()
-
-        client = Http_Client(session,url)
-        tasks = [self.chat_recv(client,url), self.chat_send(client,url,msg)]
+        #http连接是基于session，而不是基于ip\port,所以这里并不是进行连接，自然没有重连的需求
+        self.__url = url
+        client = Http_Client(session,self.__url)
+        tasks = [self.chat_recv(client), self.chat_send(client,msg)]
         await asyncio.wait(tasks)
