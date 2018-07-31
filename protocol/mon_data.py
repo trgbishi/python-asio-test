@@ -8,7 +8,7 @@ class MON_DATA:
         self.__COLL_VALUE = COLL_VALUE #private double COLL_VALUE;// NUMBER(15,2) Y N 指标值
         self.__alarm_lv = alarm_lv #private int alarm_lv;
 	
-    def __list__(self):
+    def dict(self):
         data_dict = {}
         data_dict['ROOM_ID'] = self.__ROOM_ID
         data_dict['IP'] = str(self.__IP)
@@ -18,3 +18,4 @@ class MON_DATA:
         data_dict['COLL_VALUE'] = self.__COLL_VALUE
         data_dict['alarm_lv'] = self.__alarm_lv
         return data_dict
+

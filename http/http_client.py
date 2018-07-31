@@ -13,7 +13,7 @@ class Http_Client:
 
     async def do_post(self,msg):
         print('send:' + str(msg))
-        print(len(msg))
+        # print(len(msg))
         resp = await self.session.post(self.url, data = str(msg))#用json = msg传json格式，会给"加转义字符成\"，从而与content-length不符，server无法解析
         recv = await resp.text()
         print('recv: ' + recv)

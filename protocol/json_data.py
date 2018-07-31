@@ -26,7 +26,9 @@ class Json_Data:
         self.__params = tmp_list 
         self.__id = Global_Var.json_data_id_add()
 
-    def __json__(self):
+        
+
+    def json(self):
         tmp_dict = {}
         tmp_dict['jsonrpc'] = self.__jsonrpc
         tmp_dict['method']  = self.__method

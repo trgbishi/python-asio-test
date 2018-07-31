@@ -15,7 +15,7 @@ if __name__ == "__main__":
 
 
     #封装mon_data
-    msg = Json_Data((MON_DATA(1,'1.1.1.1','metric','tags','2018-07-26',5.5,5).__list__())).__json__()
+    msg = Json_Data((MON_DATA(1,'1.1.1.1','metric','tags','2018-07-26',5.5,5).dict())).json()
     print(msg)
     loop = asyncio.get_event_loop()
     loop.run_until_complete(Data_Up().chat(ip,port,loop,msg))

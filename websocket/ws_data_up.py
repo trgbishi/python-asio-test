@@ -32,15 +32,10 @@ class Data_Up:
         print('send success??')
 
     async def chat(self,url,msg):
-        print('0')
         while True:
-            print('01')
             try:
-                print('02')
                 session = aiohttp.ClientSession()
-                print('022')
                 ws = await session.ws_connect(url)
-                print('03')
                 # break
             except aiohttp.client_exceptions.ClientConnectorError as e:
                 print(e)
